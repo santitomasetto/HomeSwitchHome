@@ -17,6 +17,13 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignorar otros archivos innecesarios
+doc/
+*.swp
+*~
+.project
+.DS_Store
+
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
