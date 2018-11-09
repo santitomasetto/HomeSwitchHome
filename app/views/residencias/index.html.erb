@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HomeSwitchHome</title>
+</head>
+<body>
+  <table>
+  	<tr>
+  		<th> Residencia </th>
+  		<th> Foto </th>
+  	</tr>
+  	<% Residencia.all.each do |residencia| %>
+  	<tr>
+  		<td> <%= residencia.nombre %></td>
+  		<td> <img src="<%= residencia.foto %>"></td>
+  	</tr>
+  	<% end %>
+  </table>
+</body>
+</html>
