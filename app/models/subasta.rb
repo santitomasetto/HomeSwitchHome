@@ -1,0 +1,2 @@
+class Subasta < ApplicationRecord
+end

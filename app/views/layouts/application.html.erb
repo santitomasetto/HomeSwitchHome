@@ -11,6 +11,11 @@
   </head>
 
   <body>
+    <%= render 'layouts/header' %>
     <%= yield %>
+    <div>
+      <%= link_to 'Terminos y Condiciones','/terminosycondiciones' %>
+      <%= link_to 'Contacto', '/contacto' %>
+    </div>
   </body>
 </html>

@@ -4,17 +4,18 @@
 	<title>HomeSwitchHome</title>
 </head>
 <body>
-  <table>
-  	<tr>
-  		<th> Residencia </th>
-  		<th> Foto </th>
-  	</tr>
-  	<% Residencia.all.each do |residencia| %>
-  	<tr>
-  		<td> <%= residencia.nombre %></td>
-  		<td> <img src="<%= residencia.foto %>"></td>
-  	</tr>
-  	<% end %>
+  <h1> Listado de residencias </h1>
+  <table class="table">
+  	    <tr>
+  		    <th> Residencia </th>
+  		    <th> Foto </th>
+  	   </tr>
+  	       <% Residencia.all.each do |residencia| %>
+          	<tr>
+  		        <td> <%= link_to residencia.nombre, residencia %></td>
+  		        <td> <img src="<%= residencia.foto %>"></td>
+  	       </tr>
+  	     <% end %>
   </table>
 </body>
 </html>
