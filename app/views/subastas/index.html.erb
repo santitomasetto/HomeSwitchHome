@@ -1,2 +1,26 @@
-<h1>Subastas#index</h1>
-<p>Find me in app/views/subastas/index.html.erb</p>
+<h3>Subastas</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th width="20%">Nombre</th>
+			<th width="20%">Monto</th>
+			<th width="60%">Foto</th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @subastas.each do |s| %>
+			<tr>
+				<td><%= s.nombre %></td>
+				<td><%= s.monto %></td>
+				<td>sinFoto</td>
+				<td><%= link_to 'Editar', edit_subasta_path, class: 'btn btn-warning' %></td>
+				<td><%= link_to 'Eliminar', subasta, metod: :destroy, class: 'btn btn-danger', data: { confirm: '¿realmente desea eliminar la subasta' } %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<br>
+<body>
+  <%= link_to 'Nueva subasta', new_subasta_path, class: 'btn btn-primary' %>
+</body>
