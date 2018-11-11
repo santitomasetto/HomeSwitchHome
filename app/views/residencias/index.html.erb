@@ -12,7 +12,7 @@
   	   </tr>
   	       <% Residencia.all.each do |residencia| %>
           	<tr>
-  		        <td> <%= link_to residencia.nombre, residencia %></td>
+  		        <td> <%= link_to residencia.nombre, residencias_path %></td>
   		        <td> <img src="<%= residencia.foto %>"></td>
   	       </tr>
   	     <% end %>
