@@ -1,9 +1,4 @@
 class ResidenciasController < ApplicationController
-  def index 
-  end
-
-  def default
-  end
   
   def new
     @residencia= Residencia.new
@@ -11,6 +6,12 @@ class ResidenciasController < ApplicationController
 
   def show
     @residencia=Residencia.find(params[:id])
+  end
+
+  def index 
+  end
+
+  def default
   end
 
   def update
@@ -25,8 +26,6 @@ class ResidenciasController < ApplicationController
   end
 
   def create
-    @residencia = Residencia.create(params.require(:residencia))
-    redirect_to @residencia
   end
 
 end

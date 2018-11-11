@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Crear una nueva residencia</h1>
 
-	<%= form_for @residencia do |r| %>
+	<%= form_for @residencia, :url => residencias_path do |r| %>
 		<div class="row">
 			<div class="col-md-4">
 				<%= r.label :nombre, 'Nombre' %>
