@@ -9,18 +9,18 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @subastas.each do |s| %>
+		<% @subastas.each do |subasta| %>
 			<tr>
-				<td><%= s.nombre %></td>
-				<td><%= s.monto %></td>
+				<td><%= subasta.nombre %></td>
+				<td><%= subasta.monto %></td>
 				<td>sinFoto</td>
-				<td><%= link_to 'Editar', edit_subasta_path, class: 'btn btn-warning' %></td>
-				<td><%= link_to 'Eliminar', subasta, metod: :destroy, class: 'btn btn-danger', data: { confirm: '¿realmente desea eliminar la subasta' } %></td>
+				<td><%= link_to 'Editar', subastas_path, class: 'btn btn-warning' %></td>
+				<td><%= link_to 'Eliminar', subasta_path, method: :delete, class: 'btn btn-danger', data: { confirm: '¿realmente desea eliminar la subasta?' } %></td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
 <br>
 <body>
-  <%= link_to 'Nueva subasta', new_subasta_path, class: 'btn btn-primary' %>
+  <%= link_to 'Nueva subasta', subastas_lista_path, class: 'btn btn-primary' %>
 </body>

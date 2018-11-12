@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HomeSwitchHome</title>
+  <title>HomeSwitchHome</title>
 </head>
 <body>
   <h1> Listado de residencias </h1>
   <table class="table">
-  	    <tr>
-  		    <th> Residencia </th>
-  		    <th> Foto </th>
-  	   </tr>
-  	       <% Residencia.all.each do |residencia| %>
-          	<tr>
-  		        <td> <%= link_to residencia.nombre, residencia %></td>
-  		        <td> <img src="<%= residencia.foto %>"></td>
-  	       </tr>
-  	     <% end %>
+        <tr>
+          <th scope="col-md-6"> Residencia </th>
+          <th scope="col-md-6"> Foto </th>
+          <th scope="col-md-6"> Acciones </th>
+
+       </tr>
+           <% Residencia.all.each do |r| %>
+            <tr>
+              <td> <%= link_to r.nombre, residencia_path(r) %></td>
+              <td> <img src="<%= r.foto %>" width="500" height="500"></td>
+              <td>
+               <%= link_to "Editar", edit_residencia_path(r), class: 'btn btn-info btn-sm' %>
+               <%= link_to "Eliminar",residencia_path(r), method: :delete, class: 'btn btn-danger btn-sm' %>
+            </td>
+           </tr>
+         <% end %>
   </table>
+  <%= link_to 'Nueva Residencia', new_residencia_path, class: 'btn btn-primary' %>
+  <%= link_to 'Subastas', subastas_path, class: 'btn btn-primary' %>
 </body>
 </html>

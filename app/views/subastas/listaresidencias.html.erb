@@ -1,0 +1,23 @@
+<head>
+  <title>HomeSwitchHome</title>
+</head>
+<body>
+  <h1> Listado de residencias </h1>
+  <table class="table">
+        <tr>
+          <th scope="col-md-6"> Residencia </th>
+          <th scope="col-md-6"> Foto </th>
+          <th scope="col-md-6"> Acciones </th>
+
+       </tr>
+           <% @recidencias.each do |r| %>
+            <tr>
+              <td> <%= r.nombre %></td>
+              <td> <img src="<%= r.foto %>" width="500" height="500"></td>
+              <td>
+               <%= link_to "Nueva subasta", subastas_lista_path, class: 'btn btn-info btn-sm' %>
+            </td>
+           </tr>
+         <% end %>
+  </table>
+</body>
