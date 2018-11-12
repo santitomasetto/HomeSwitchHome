@@ -19,13 +19,20 @@ class ResidenciasController < ApplicationController
 
   def destroy
     Residencia.destroy(params[:id])
-    redirect_to residencia_path
+    redirect_to residencias_path
   end
 
   def edit
   end
 
   def create
+    @residencia=Residencia.new(params.require(:residencia).permit(:nombre,:pais,:direccion,:capacidad,:foto))
+
+    if @residencia.save
+      redirect_to residencias_path
+    else
+      render :new
+    end
   end
 
 end
