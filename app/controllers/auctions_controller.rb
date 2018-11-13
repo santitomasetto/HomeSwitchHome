@@ -31,6 +31,10 @@ class AuctionsController < ApplicationController
 
   def edit
   end
+
+  def bid_up
+    @auction=Auction.find(params[:auction])
+  end
   
 
   def create

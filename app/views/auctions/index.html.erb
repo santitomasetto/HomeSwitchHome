@@ -11,7 +11,7 @@
 	<tbody>
 		<% @auctions.each do |auction| %>
 			<tr>
-				<td><%= auction.name %></td>
+				<td><%= link_to auction.name, auction_bid_up_path(:auction => auction.id) %></td>
 				<td><%= auction.bid %></td>
 				<td><img src="<%= auction.residence.photo%>"></td>
 				<td><%= link_to 'Editar', auction, method: :update, class: 'btn btn-warning' %></td>
