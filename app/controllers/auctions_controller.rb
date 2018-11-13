@@ -36,8 +36,11 @@ class AuctionsController < ApplicationController
   def create
   	@auction= Auction.new(params.require(:auction).permit(:name,:amount,:in_date,:out_date,:bid,:residence_id))
     if @auction.save 
-      redirect_to auctions_path
+      redirect_to auctions_path, notice: "La subasta se creo exitosamente"
+    else 
+      redirect_to auctions_path, notice: "ERROR al crear la subasta"
     end
+
   end
 
 end

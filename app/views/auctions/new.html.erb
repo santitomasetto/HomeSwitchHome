@@ -2,13 +2,41 @@
 
 <%= form_for @auction do |auction| %>
 	<div class="form-group">
+      </div>
       <div class="row">
 	    <div class="col-4">
           <%= auction.label :amount, 'Monto minimo' %>
     	  <%= auction.text_field :amount, class: 'form-control', placeholder: "ingrese el monto minimo", required: true %>
         </div>
       </div>
+      <div class="row">
+      	<div class="col-4">
+      		<%= auction.label :in_date, 'Fecha de inicio' %>
+      		<div class="form-group">
+              <div class='input-group date' id='auction.in_date'>
+                <input type='date' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+        </div>
+      	</div>
+      	<div class="row">
+      	<div class="col-4">
+      		<%= auction.label :out_date, 'Fecha final' %>
+      		<div class="form-group">
+              <div class='input-group date' id='auction.out_date'>
+                <input type='date' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+        </div>
+      	</div>
+      </div>
 	</div>
 	<%= auction.submit 'guardar', class: 'btn btn-success' %>
-	<%= link_to 'volver', auctions_path, class: 'btn btn-link' %>
-<%end%>	
+	<%= link_to 'volver', residences_path, class: 'btn btn-link' %>
+<%end%>
