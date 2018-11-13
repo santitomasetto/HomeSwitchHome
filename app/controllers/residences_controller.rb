@@ -8,6 +8,7 @@ class ResidencesController < ApplicationController
   end
 
   def index 
+    @residences= Residence.all
   end
 
   def default

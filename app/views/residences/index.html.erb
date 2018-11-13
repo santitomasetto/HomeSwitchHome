@@ -26,3 +26,22 @@
   <%= link_to 'Nueva Residencia', new_residence_path, class: 'btn btn-primary' %>
 </body>
 </html>
+
+<div class="container">
+  <div class="row">
+    <% @residences.each do |residence| %>
+      <div class="col-4">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="<%= residence.photo%>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to residence.name, residence %></h5>
+            <p><%= link_to "Agregar subasta", new_auction_path(:residence => residence.id), class: 'btn btn-warning btn-sm' %></p>
+            <a><%= link_to "Editar", edit_residence_path(residence), class: 'btn btn-info btn-sm' %>
+               <%= link_to "Eliminar",residence, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: '¿Realmente queres eliminar la residencia?'} %>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

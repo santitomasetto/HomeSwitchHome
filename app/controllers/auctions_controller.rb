@@ -7,7 +7,10 @@ class AuctionsController < ApplicationController
   end
   
   def new
-  	@auction= Auction.new
+    r=Residence.find(params[:residence])
+    nombre=r.name
+    residence_id=r.id
+  	@auction= Auction.new(name: nombre, residence_id: residence_id, bid: 0)
   end
 
   def show
@@ -31,7 +34,7 @@ class AuctionsController < ApplicationController
   
 
   def create
-  	@auction= Auction.new(params.require(:auction).permit(:name, :amount))
+  	@auction= Auction.new(params.require(:auction).permit(:name,:amount,:in_date,:out_date,:bid,:residence_id))
     if @auction.save 
       redirect_to auctions_path
     end
