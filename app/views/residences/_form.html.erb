@@ -4,25 +4,25 @@
 		<div class="row">
 			<div class="col-md-4">
 				<%= r.label :name, 'Nombre' %>
-				<%= r.text_field :name, class: 'form-control', label: 'Nombre', placeholder: 'Ingrese el nombre' %>
+				<%= r.text_field :name, class: 'form-control', label: 'Nombre',maxlength: 20 , placeholder: 'Ingrese el nombre' %>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
 				<%= r.label :country, 'Pais' %>
-				<%= r.text_field :country, class: 'form-control', label: 'Pais', placeholder: 'Ingrese el pais' %>
+				<%= r.text_field :country, class: 'form-control', label: 'Pais',maxlength: 15 , placeholder: 'Ingrese el pais' %>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
 				<%= r.label :address, 'Direccion' %>
-				<%= r.text_field :address, class: 'form-control', label: 'direccion', placeholder: 'Ingrese la direccion' %>
+				<%= r.text_field :address, class: 'form-control', label: 'direccion',maxlength: 20 , placeholder: 'Ingrese la direccion' %>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
 				<%= r.label :capacity, 'Capacidad' %>
-				<%= r.number_field :capacity, class: 'form-control', label: 'Capacidad', placeholder: 'Ingrese la capacidad' %>
+				<%= r.number_field :capacity, class: 'form-control', label: 'Capacidad',in: 1.0..10.0 ,step: 1, placeholder: 'Ingrese la capacidad' %>
 			</div>
 		</div>
 		<div class="row">

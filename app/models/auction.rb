@@ -1,3 +1,3 @@
 class Auction < ApplicationRecord
-	belongs_to :recidence
+	belongs_to :residence
 end

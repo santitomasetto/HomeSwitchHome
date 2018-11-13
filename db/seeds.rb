@@ -9,3 +9,4 @@ puts "crear residencias"
 Residence.destroy_all
 delsol=Residence.find_or_create_by(name:"Del Sol",country:"Miami",address:"NE 2nd avenue",capacity:5,photo:"http://4.bp.blogspot.com/-rxXVVz7Xwp0/VbbPhYElqBI/AAAAAAAACbo/eeQsjViWSNE/s1600/tiempos%2Bcompartidos.jpg")
 losmanzanos=Residence.find_or_create_by(name:"Los Manzanos",country:"Argentina",address:"Rivadavia 249",capacity:3,photo:"https://static1.sosiva451.com/5056594/7cfb2a6d-33e2-442e-afcd-6e3c7eaecc8f_u_medium.jpg")
+
