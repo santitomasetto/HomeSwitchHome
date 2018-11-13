@@ -26,6 +26,7 @@ class ResidenciasController < ApplicationController
   end
 
   def create
+<<<<<<< HEAD
     @residencia=Residencia.new(params.require(:residencia).permit(:nombre,:pais,:direccion,:capacidad,:foto))
 
     if @residencia.save
@@ -33,6 +34,8 @@ class ResidenciasController < ApplicationController
     else
       render :new
     end
+=======
+>>>>>>> 051cb348633aa37c5163aaf248c1e06d35b099f2
   end
 
 end

@@ -1,0 +1,12 @@
+<h3>Nueva subasta</h3>
+
+<%= form_for @auction do |auction| %>
+	<div class="form-group">
+		<%= auction.label :name, 'Nombre de la residencia' %>
+    	<%= auction.text_field :name, class: 'form-control', placeholder: "ingrese el nombre de la residencia", required: true, unique: true %>
+    	<%= auction.label :amount, 'Monto minimo' %>
+    	<%= auction.text_field :amount, class: 'form-control', placeholder: "ingrese el monto minimo", required: true %>
+
+	</div>
+	<%= auction.submit 'guardar', class: 'btn btn-success' %>
+<%end%>	

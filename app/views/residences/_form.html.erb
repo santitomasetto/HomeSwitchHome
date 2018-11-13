@@ -1,0 +1,38 @@
+<div class="container">
+
+	<%= form_for @residence do |r| %>
+		<div class="row">
+			<div class="col-md-4">
+				<%= r.label :name, 'Nombre' %>
+				<%= r.text_field :name, class: 'form-control', label: 'Nombre', placeholder: 'Ingrese el nombre' %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<%= r.label :country, 'Pais' %>
+				<%= r.text_field :country, class: 'form-control', label: 'Pais', placeholder: 'Ingrese el pais' %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<%= r.label :address, 'Direccion' %>
+				<%= r.text_field :address, class: 'form-control', label: 'direccion', placeholder: 'Ingrese la direccion' %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<%= r.label :capacity, 'Capacidad' %>
+				<%= r.number_field :capacity, class: 'form-control', label: 'Capacidad', placeholder: 'Ingrese la capacidad' %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<%= r.label :photo, 'Foto' %>
+				<%= r.text_field :photo, class: 'form-control', label: 'Foto', placeholder: 'Ingrese la imagen' %>
+			</div>
+		</div>
+		<%= r.submit "Guardar Residencia", class: 'btn btn-primary' %>
+		<%= link_to 'Volver', residences_path, class: 'btn btn-default'%>
+	<%end%>
+	
+</div>

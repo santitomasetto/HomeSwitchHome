@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HomeSwitchHome</title>
+</head>
+<body>
+  <h1> Listado de residencias </h1>
+  <table class="table">
+  	    <tr>
+  		    <th scope="col-md-6"> Residencia </th>
+  		    <th scope="col-md-6"> Foto </th>
+          <th scope="col-md-6"> Acciones </th>
+
+  	   </tr>
+  	       <% Residence.all.each do |r| %>
+          	<tr>
+  		        <td> <%= link_to r.name, residence_path(r) %></td>
+  		        <td> <img src="<%= r.photo %>" width="500" height="500"></td>
+              <td>
+               <%= link_to "Editar", edit_residence_path(r), class: 'btn btn-info btn-sm' %>
+               <%= link_to "Eliminar",residence_path(r), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: '¿Realmente queres eliminar la residencia?'} %>
+            </td>
+  	       </tr>
+  	     <% end %>
+  </table>
+  <%= link_to 'Nueva Residencia', new_residence_path, class: 'btn btn-primary' %>
+</body>
+</html>

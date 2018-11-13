@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HomeSwitchHome</title>
+</head>
+<body>
+  <!-- LO SAQUE DE LA PAGINA bootsnipp.com/snippets/NjRBp-->
+  <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-responsive" src="<%= @residence.photo %>" alt="<%= @residence.name %>" title="<%= @residence.name %>" width="500" height="500" />
+        </div>
+        <div class="col-md-6">
+            <blockquote>
+                <p><%= @residence.name %></p> <small><cite title="Source Title"><%= @residence.address %>, <%= @residence.country %>  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+            </blockquote>
+            <p> Capacidad: <%= @residence.capacity %></p>
+        </div>
+    </div>
+    <%= link_to 'Volver', residences_path, class: 'btn btn-primary'%>
+</div>
+
+</body>
+</html>
