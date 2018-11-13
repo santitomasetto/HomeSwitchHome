@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   resources :residencias
-  resources :subastas
+  resources :auctions
 
   root 'residencias#index'
-
-  get '/subastas/lista', to:'subastas#listaresidencias'
 end

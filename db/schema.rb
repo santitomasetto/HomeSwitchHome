@@ -10,15 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_204639) do
+ActiveRecord::Schema.define(version: 2018_11_13_000620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "auctions", force: :cascade do |t|
-    t.string "nombre"
-    t.float "monto"
-    t.string "foto"
+    t.string "name"
+    t.date "date"
+    t.float "amount"
+    t.float "bid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,17 +33,6 @@ ActiveRecord::Schema.define(version: 2018_11_12_204639) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "fecha"
-  end
-
-  create_table "subasta", force: :cascade do |t|
-    t.string "nombre"
-    t.integer "monto"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "foto"
-    t.date "fecha"
-    t.integer "residencia_id"
-    t.float "puja"
   end
 
   create_table "tiempo_compartidos", force: :cascade do |t|
