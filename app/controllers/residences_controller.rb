@@ -17,10 +17,15 @@ class ResidencesController < ApplicationController
   def update
     @residence=Residence.find(params[:id])
 
-    if @residence.update(params.require(:residence).permit(:name,:country,:address,:capacity,:photo))
-      redirect_to residences_path
-    else
+    if @residence.present?
+      flash[:notice] = 'La residencia ya existe'
       render :edit
+    else
+      if @residence.update(params.require(:residence).permit(:name,:country,:address,:capacity,:photo))
+        redirect_to residences_path
+      else
+        render :edit
+      end
     end
   end
 
@@ -41,10 +46,15 @@ class ResidencesController < ApplicationController
   def create
     @residence=Residence.new(params.require(:residence).permit(:name,:country,:address,:capacity,:photo))
 
-    if @residence.save
-      redirect_to residences_path
-    else
+    if @residence.present?
+      flash[:notice] = 'La residencia ya existe'
       render :new
+    else
+      if @residence.save
+        redirect_to residences_path
+      else
+        render :new
+      end
     end
   end
 end
