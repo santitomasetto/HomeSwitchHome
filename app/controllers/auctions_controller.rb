@@ -18,19 +18,27 @@ class AuctionsController < ApplicationController
 
   def update
     @auction = Auction.find(params[:id])
-    if @auction.update(params.require(:auction).permit(:name,:amount,:in_date,:out_date,:bid,:residence_id))
-      redirect_to auctions_path
+    if @auction.in_date.wday == 1 and @auction.out_date.wday == 0
+      if (@auction.in_date.month - Time.now.month) + 12 * (@auction.in_date.year - Time.now.year) >= 6
+        if @auction.update(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
+          redirect_to auctions_path
+        else
+          render :edit
+        end
+      else
+        redirect_to auctions_path, alert: "Se debe crear con 6 meses de anticipacion"
+      end    
     else
-      render :edit
+       redirect_to auctions_path, alert: "La subasta debe comenzar un lunes y terminar un domingo"
     end
   end
 
   def destroy
   	auction= Auction.find(params[:id])
   	if auction.destroy
-  		redirect_to auctions_path, notice: "la subasta '#{auction.name}' ha sido eliminada"
+  		redirect_to auctions_path, notice: "la subasta '#{auction.residence.name}' ha sido eliminada"
   	else
-  		redirect_to auctions_path, notice: "ERROR al eliminar la subasta '#{auction.name}'"
+  		redirect_to auctions_path, alert: "ERROR al eliminar la subasta '#{auction.residence.name}'"
   	end
   end
 
@@ -41,24 +49,23 @@ class AuctionsController < ApplicationController
   def bid_up
     @auction=Auction.find(params[:auction])
   end
-  
 
   def create
-  	@auction= Auction.new(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
-    puts @auction.amount
-    puts @auction.in_date
-    puts @auction.in_date.wday
-    puts @auction.out_date
-    puts @auction.bid
-    puts @auction.residence_id
+    @auction= Auction.new(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
 
-
-    if @auction.save 
-      redirect_to auctions_path, notice: "La subasta se creo exitosamente"
-    else  
-      redirect_to auctions_path, notice: "Ya existe la subasta"
+    if @auction.in_date.wday == 1 and @auction.out_date.wday == 0
+      if (@auction.in_date.month - Time.now.month) + 12 * (@auction.in_date.year - Time.now.year) >= 6
+        if @auction.save 
+          redirect_to auctions_path, notice: "La subasta se creo exitosamente"
+        else  
+          redirect_to auctions_path, alert: "Ya existe la subasta"
+        end
+      else
+        redirect_to auctions_path, alert: "Se debe crear con 6 meses de anticipacion"
+      end    
+    else
+       redirect_to auctions_path, alert: "La subasta debe comenzar un lunes y terminar un domingo"
     end
-    
   end
 
 end
