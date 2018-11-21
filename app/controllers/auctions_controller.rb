@@ -49,7 +49,7 @@ class AuctionsController < ApplicationController
     if @auction.save 
       redirect_to auctions_path, notice: "La subasta se creo exitosamente"
     else  
-      redirect_to :new
+      redirect_to auctions_path, notice: "Ya existe la subasta"
     end
     
   end
