@@ -8,9 +8,8 @@ class AuctionsController < ApplicationController
   
   def new
     r=Residence.find(params[:residence])
-    nombre=r.name
     residence_id=r.id
-  	@auction= Auction.new(name: nombre, residence_id: residence_id, bid: 0)
+  	@auction= Auction.new(residence_id: residence_id, bid: 0)
   end
 
   def show
@@ -45,7 +44,15 @@ class AuctionsController < ApplicationController
   
 
   def create
-  	@auction= Auction.new(params.require(:auction).permit(:name,:amount,:in_date,:out_date,:bid,:residence_id))
+  	@auction= Auction.new(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
+    puts @auction.amount
+    puts @auction.in_date
+    puts @auction.in_date.wday
+    puts @auction.out_date
+    puts @auction.bid
+    puts @auction.residence_id
+
+
     if @auction.save 
       redirect_to auctions_path, notice: "La subasta se creo exitosamente"
     else  

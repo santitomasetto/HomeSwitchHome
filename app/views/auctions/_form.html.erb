@@ -3,8 +3,9 @@
 	<div class="form-group">
 	  <div class="row">
 	  	<div class="col-4">
-	  	    <%= auction.label :name, 'Nombre'%>
-	  		<%= auction.text_field :name, :value => @auction.name,maxlength: 20 ,class: 'form-control' %>
+	  	    <h3><%= auction.label :name, @auction.residence.name%></h3>
+	  	    <%= auction.hidden_field :residence_id%>
+	  	    <%= auction.hidden_field :bid%>
 	  	</div>
 	  </div>
       <div class="row">
@@ -16,27 +17,15 @@
       <div class="row">
       	<div class="col-4">
       		<%= auction.label :in_date, 'Fecha de inicio' %>
-      		<%= auction.date_field :in_date, class: 'form-control'%>
+      		<%= auction.date_field :in_date, class: 'form-control', required: true %>
         </div>
       </div>
       <div class="row">
       	<div class="col-4">
       		<%= auction.label :out_date, 'Fecha final' %>
-      		<%= auction.date_field :out_date, class: 'form-control'%>
+      		<%= auction.date_field :out_date, class: 'form-control', required: true %>
         </div>
       </div>
-      <div class="row">
-	  	<div class="col-4">
-	  	    <%= auction.label :residence_id, 'Identificador de la residencia'%>
-	  		<%= auction.number_field :residence_id, :value => @auction.residence_id, class: 'form-control' %>
-	  	</div>
-	  </div>
-	  <div class="row">
-	  	<div class="col-4">
-	  	    <%= auction.label :bid, 'Puja actual'%>
-	  		<%= auction.number_field :bid, :value => @auction.bid, class: 'form-control' %>
-	  	</div>
-	  </div>
 	</div>
 	<%= auction.submit 'guardar', class: 'btn btn-success' %>
 	<%= link_to 'volver', residences_path, class: 'btn btn-link' %>
