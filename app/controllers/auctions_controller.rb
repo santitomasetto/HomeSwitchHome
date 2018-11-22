@@ -57,22 +57,27 @@ class AuctionsController < ApplicationController
   def create
     @auction= Auction.new(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
 
-    if @auction.in_date.wday == 1 and @auction.out_date.wday == 0
-      if (@auction.in_date.month - Time.now.month) + 12 * (@auction.in_date.year - Time.now.year) >= 6
-        if @auction.save 
-          flash.notice = "La subasta se creo exitosamente"
-          redirect_to auctions_path
-        else  
-          flash.now[:alert] = 'Ya existe la subasta'
-          redirect_to auctions_path
+    if @auction.in_date.wday == 1 and @auction.out_date.wday == 0 
+      if @auction.out_date.mjd-@auction.in_date.mjd==6 
+        if (@auction.in_date.month - Time.now.month) + 12 * (@auction.in_date.year - Time.now.year) >= 6
+          if @auction.save 
+            flash.notice = "La subasta se creo exitosamente"
+            redirect_to auctions_path
+          else  
+            flash.now[:alert] = 'Ya existe la subasta'
+            redirect_to auctions_path
+          end
+        else
+          flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
+          render :new
         end
       else
-        flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
+        flash.now[:alert] = 'La subasta debe durar 1 semana'
         render :new
-      end    
+      end      
     else
-       flash.now[:alert] = 'La subasta debe comenzar un lunes y terminar un domingo'
-       render :new
+      flash.now[:alert] = 'La subasta debe comenzar un lunes y terminar un domingo'
+      render :new
     end
   end
 
