@@ -20,7 +20,7 @@ class ResidencesController < ApplicationController
       if @residence.update(params.require(:residence).permit(:name,:country,:address,:capacity,:photo))
         redirect_to residences_path
       else
-        flash[:notice] = "La residencia ya existe"
+        flash.now[:alert] = 'La residencia ya existe'
         render :edit
       end
   end
@@ -29,9 +29,11 @@ class ResidencesController < ApplicationController
     residence=Residence.find(params[:id])
 
     if residence.destroy
-      redirect_to residences_path, success: "La Residencia '#{residence.name}' ha sido eliminada"
+      flash.notice = "La Residencia '#{residence.name}' ha sido eliminada"
+      redirect_to residences_path
     else
-      redirect_to residences_path, success: "Error al eliminar la Residencia '#{residence.name}'"
+      flash.alert = "Error al eliminar la Residencia '#{residence.name}'"
+      redirect_to residences_path
     end
   end
 
@@ -45,7 +47,7 @@ class ResidencesController < ApplicationController
       if @residence.save
         redirect_to residences_path
       else
-        flash[:notice] = "La residencia ya existe"
+        flash.now[:alert] = 'La residencia ya existe'
         render :new
       end
     

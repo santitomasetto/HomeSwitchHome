@@ -26,19 +26,23 @@ class AuctionsController < ApplicationController
           render :edit
         end
       else
-        redirect_to auctions_path, alert: "Se debe crear con 6 meses de anticipacion"
+        flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
+        render :edit
       end    
     else
-       redirect_to auctions_path, alert: "La subasta debe comenzar un lunes y terminar un domingo"
+       flash.now[:alert] = 'La subasta debe comenzar un lunes y terminar un domingo'
+       render :edit
     end
   end
 
   def destroy
   	auction= Auction.find(params[:id])
   	if auction.destroy
-  		redirect_to auctions_path, notice: "la subasta '#{auction.residence.name}' ha sido eliminada"
+      flash.notice = "La subasta '#{auction.residence.name}' ha sido eliminada"
+  		redirect_to auctions_path
   	else
-  		redirect_to auctions_path, alert: "ERROR al eliminar la subasta '#{auction.residence.name}'"
+      flash.alert = "ERROR al eliminar la subasta '#{auction.residence.name}'"
+  		redirect_to auctions_path 
   	end
   end
 
@@ -56,15 +60,19 @@ class AuctionsController < ApplicationController
     if @auction.in_date.wday == 1 and @auction.out_date.wday == 0
       if (@auction.in_date.month - Time.now.month) + 12 * (@auction.in_date.year - Time.now.year) >= 6
         if @auction.save 
-          redirect_to auctions_path, notice: "La subasta se creo exitosamente"
+          flash.notice = "La subasta se creo exitosamente"
+          redirect_to auctions_path
         else  
-          redirect_to auctions_path, alert: "Ya existe la subasta"
+          flash.now[:alert] = 'Ya existe la subasta'
+          redirect_to auctions_path
         end
       else
-        redirect_to auctions_path, alert: "Se debe crear con 6 meses de anticipacion"
+        flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
+        render :new
       end    
     else
-       redirect_to auctions_path, alert: "La subasta debe comenzar un lunes y terminar un domingo"
+       flash.now[:alert] = 'La subasta debe comenzar un lunes y terminar un domingo'
+       render :new
     end
   end
 

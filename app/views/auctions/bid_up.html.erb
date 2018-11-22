@@ -22,11 +22,11 @@
 		    	</div>
 		    	<div class="row">
 		    		<%= auction.label :bid, 'Puja'%>
-		    		<%= auction.number_field :bid, :value => @auction.bid,class: 'form-control'%>
+		    		<%= auction.number_field :bid, :value => @auction.bid, min: @auction.bid+1,class: 'form-control'	%>
 		    	</div>
 		    	<div class="row">
-		    		<%= auction.submit 'guardar', class: 'btn btn-success' %>
-	                <%= link_to 'volver', auctions_path, class: 'btn btn-link' %>
+		    		<%= auction.submit 'Guardar', class: 'btn btn-success' %>
+	                <%= link_to 'Volver', auctions_path, class: 'btn btn-link' %>
 		    	</div>
 		  	  </div>
 		  	</div>
