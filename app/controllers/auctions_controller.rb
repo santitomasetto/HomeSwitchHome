@@ -18,20 +18,27 @@ class AuctionsController < ApplicationController
 
   def update
     @auction = Auction.find(params[:id])
-    if @auction.in_date.wday == 1 and @auction.out_date.wday == 0
-      if (@auction.in_date.month - Time.now.month) + 12 * (@auction.in_date.year - Time.now.year) >= 6
-        if @auction.update(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
-          redirect_to auctions_path
+    @a = Auction.new(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
+    if @a.in_date.wday == 1 and @a.out_date.wday == 0 
+      if @a.out_date.mjd-@a.in_date.mjd==6 
+        if (@a.in_date.month - Time.now.month) + 12 * (@a.in_date.year - Time.now.year) >= 6
+          if @auction.update(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
+            flash.notice = "La subasta '#{@auction.residence.name}' ha sido actualizada"
+            redirect_to auctions_path
+          else
+            render :edit
+          end
         else
-          render :edit
+          flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
+          render :new
         end
       else
-        flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
-        render :edit
-      end    
+        flash.now[:alert] = 'La subasta debe durar 1 semana'
+        render :new
+      end      
     else
-       flash.now[:alert] = 'La subasta debe comenzar un lunes y terminar un domingo'
-       render :edit
+      flash.now[:alert] = 'La subasta debe comenzar un lunes y terminar un domingo'
+      render :new
     end
   end
 
