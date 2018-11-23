@@ -18,12 +18,12 @@ class AuctionsController < ApplicationController
 
   def update
     @auction = Auction.find(params[:id])
-    @a = Auction.new(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
+    @a = Auction.new(params.require(:auction).permit(:in_date,:out_date))
     if @a.in_date.wday == 1 and @a.out_date.wday == 0 
       if @a.out_date.mjd-@a.in_date.mjd==6 
         if (@a.in_date.month - Time.now.month) + 12 * (@a.in_date.year - Time.now.year) >= 6
-          if @auction.update(params.require(:auction).permit(:amount,:in_date,:out_date,:bid,:residence_id))
-            flash.notice = "La subasta '#{@auction.residence.name}' ha sido actualizada"
+          if @auction.update(params.require(:auction).permit(:amount,:in_date,:out_date,:bid))
+            flash.notice = "La subasta #{@auction.residence.name} ha sido actualizada"
             redirect_to auctions_path
           else
             render :edit
