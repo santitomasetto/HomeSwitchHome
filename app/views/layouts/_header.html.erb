@@ -36,11 +36,13 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <%= form_tag residences_path, method: :get, enforce_utf8: false  do %>
+      <%= text_field_tag :keyword, nil, class: "form-control mr-sm-2", placeholder: "Ingrese Nombre" %>
+      <%= submit_tag "Buscar", name: nil, class: "btn btn-outline-success my-2 my-sm-0" %>
+      <% end %>
     </form>
   </div>
-</nav>
+</nav> 
   <% if notice%>
     <div class="alert alert-success" role="alert"><%= notice %></div>
   <%end%>
@@ -48,3 +50,4 @@
   <div class="alert alert-danger" role="alert"><%= alert %></div>
   <%end%>
 </header>
+

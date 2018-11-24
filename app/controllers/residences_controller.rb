@@ -8,7 +8,12 @@ class ResidencesController < ApplicationController
   end
 
   def index 
-    @residences= Residence.all
+  	search = "%#{params[:keyword]}%"
+  	if params[:keyword].present?
+  		@residences = Residence.where('name LIKE ? OR country LIKE ?',search,search)
+  	else
+    	@residences= Residence.all
+    end
   end
 
   def default
