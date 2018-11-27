@@ -60,7 +60,8 @@
         <%= f.date_field :card_vto, class: 'form-control', label: 'Fecha de Vencimiento',required: true %>
       </div>
     </div>
-    <%= f.hidden_field :premium %>
+    <%= f.hidden_field :premium, value: false %>
+    <%= f.hidden_field :admin, value: false %>
     <%= f.submit "Guardar Usuario", class: 'btn btn-primary' %>
     <%= link_to 'Volver', residences_path, class: 'btn btn-default'%>
 <% end %>
