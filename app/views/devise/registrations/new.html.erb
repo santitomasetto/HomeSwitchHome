@@ -7,14 +7,14 @@
   <div class="row">
       <div class="col-md-4">
         <%= f.label :name, 'Nombre' %>
-        <%= f.text_field :name, class: 'form-control', label: 'Nombre',maxlength: 20 , placeholder: 'Ingrese el nombre',required: true %>
+        <%= f.text_field :name, class: 'form-control',autofocus: true, label: 'Nombre',maxlength: 20 , placeholder: 'Ingrese el nombre',required: true %>
       </div>
     </div>
 
   <div class="row">
     <div class="col-md-4">
       <%= f.label :email %><br />
-      <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email",required: true %>
+      <%= f.email_field :email, class: 'form-control', autocomplete: "email",required: true %>
     </div>
   </div>
 
