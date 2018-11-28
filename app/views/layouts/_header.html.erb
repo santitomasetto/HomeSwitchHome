@@ -33,7 +33,6 @@
       <li class="nav-item">
         <%= link_to 'Terminos y condiciones', '/terminosycondiciones', class: "nav-link" %>
       </li>
-
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <%= form_tag residences_path, method: :get, enforce_utf8: false  do %>
@@ -42,19 +41,19 @@
       <% end %>
     </form>
     <% if current_user %>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            <%= current_user.name %>
            </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#"><%= link_to 'Editar' , edit_user_registration_path, class: "nav-link"%></a>
+            <% if current_user.admin %>
+            <a class="dropdown-item" href="#"><%= link_to 'Lista de usuarios', users_index_path, class: "nav-link" %></a>
+            <%end%>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#"><%= link_to 'Sign Out', destroy_user_session_path,method: :delete, class: "nav-link" %></a>
           </div>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Sign Out', destroy_user_session_path,method: :delete, class: "nav-link" %>
         </li>
       </ul>
     <% else %>
@@ -75,5 +74,7 @@
   <% if alert%>
   <div class="alert alert-danger" role="alert"><%= alert %></div>
   <%end%>
+
+ 
 </header>
 
