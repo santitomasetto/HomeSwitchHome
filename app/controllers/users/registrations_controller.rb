@@ -4,15 +4,27 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  #GET /resource/sign_up
+   def new
+     puts "PASOOOOOO"
+     super
+   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+   def create
+     @u=User.new(params.require(:user).permit(:birthdate,:card_vto))
+     if Time.now.year-@u.birthdate.year>17
+       if (@u.card_vto.month - Time.now.month) + 12 * (@u.card_vto.year - Time.now.year)
+        super
+       else
+        flash.now[:alert] = "Su tarjeta esta vencida"
+        redirect_to new_user_registration_path, alert: "Su tarjeta esta vencida"
+       end
+     else
+        flash.now[:alert] = "Tenes que ser mayor de 18 años"
+        redirect_to new_user_registration_path
+     end
+   end
 
   # GET /resource/edit
   # def edit
