@@ -17,11 +17,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
        if (@u.card_vto.month - Time.now.month) + 12 * (@u.card_vto.year - Time.now.year)
         super
        else
-        flash.now[:alert] = "Su tarjeta esta vencida"
+        flash.alert = "Su tarjeta esta vencida"
         redirect_to new_user_registration_path, alert: "Su tarjeta esta vencida"
        end
      else
-        flash.now[:alert] = "Tenes que ser mayor de 18 años"
+        flash.alert = "Tenes que ser mayor de 18 años"
         redirect_to new_user_registration_path
      end
    end

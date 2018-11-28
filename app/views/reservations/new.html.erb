@@ -1,0 +1,17 @@
+<h3>Nueva reservacion</h3>
+<div class="container">
+<%= form_for @reservation do |reservation| %>
+	<div class="form-group">
+      <div class="row">
+      	<div class="col-4">
+      		<%= reservation.label :in_date, 'Fecha de inicio de la semana' %>
+      		<%= reservation.date_field :in_date, class: 'form-control', required: true %>
+        </div>
+      </div>
+	</div>
+	<%= reservation.hidden_field :residence_id%>
+	<%= reservation.hidden_field :user_id%>
+	<%= reservation.submit 'guardar', class: 'btn btn-success' %>
+	<%= link_to 'volver', residences_path, class: 'btn btn-link' %>
+<%end%>
+</div>

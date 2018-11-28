@@ -25,7 +25,6 @@
 		    		<%= auction.number_field :bid, :value => @auction.bid, min: @auction.bid+1,class: 'form-control'	%>
 		    	</div>
 		    	<%= auction.hidden_field :in_date%>
-		    	<%= auction.hidden_field :out_date%>
 		    	<div class="row">
 		    		<%= auction.submit 'Guardar', class: 'btn btn-success' %>
 	                <%= link_to 'Volver', auctions_path, class: 'btn btn-link' %>

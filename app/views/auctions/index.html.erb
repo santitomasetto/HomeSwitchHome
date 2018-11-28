@@ -19,7 +19,6 @@
 				<td>$<%= auction.bid %></td>
 				<td><img src="<%= auction.residence.photo%>" width="300"></td>
 				<td><%= auction.in_date %></td>
-				<td><%= auction.out_date %></td>
 				<td><%= link_to 'Editar', edit_auction_path(auction), class: 'btn btn-warning' %></td>
 				<td><%= link_to 'Eliminar', auction, method: :delete, class: 'btn btn-danger', data: { confirm: '¿realmente desea eliminar la subasta?' } %></td>
 			</tr>
