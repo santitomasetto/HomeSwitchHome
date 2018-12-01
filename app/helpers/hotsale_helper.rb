@@ -1,0 +1,2 @@
+module HotsaleHelper
+end

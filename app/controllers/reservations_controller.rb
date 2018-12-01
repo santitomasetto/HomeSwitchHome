@@ -37,7 +37,7 @@ class ReservationsController < ApplicationController
               flash.notice = "La reservacion se realizo exitosamente"
               redirect_to root_path
             else  
-              flash.alert = "la fecha ya esta reservada"
+              flash.alert = "La fecha ya esta reservada"
               redirect_to root_path
             end
           else

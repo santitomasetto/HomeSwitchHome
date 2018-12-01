@@ -6,7 +6,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   #GET /resource/sign_up
    def new
-     puts "PASOOOOOO"
      super
    end
 
@@ -14,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
    def create
      @u=User.new(params.require(:user).permit(:birthdate,:card_vto))
      if Time.now.year-@u.birthdate.year>17
-       if (@u.card_vto.month - Time.now.month) + 12 * (@u.card_vto.year - Time.now.year)
+       if (@u.card_vto.month - Time.now.month) + 12 * (@u.card_vto.year - Time.now.year) >0
         super
        else
         flash.alert = "Su tarjeta esta vencida"
@@ -27,14 +26,29 @@ class Users::RegistrationsController < Devise::RegistrationsController
    end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+   def edit
+     super
+   end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+   def update
+     session[:user_id] = current_user.id
+     @user=User.find(session[:user_id])
+     @u =User.new(params.require(:user).permit(:birthdate,:card_vto))
+     if Time.now.year-@u.birthdate.year>17
+       if (@u.card_vto.month - Time.now.month) + 12 * (@u.card_vto.year - Time.now.year) >0
+          if @user.update(params.require(:user).permit(:birthdate,:card_vto))
+            super
+          end
+       else
+        flash.alert = "Su tarjeta esta vencida"
+        redirect_to edit_user_registration_path, alert: "Su tarjeta esta vencida"
+       end
+     else
+        flash.alert = "Tenes que ser mayor de 18 años"
+        redirect_to edit_user_registration_path
+     end
+   end
 
   # DELETE /resource
   # def destroy
