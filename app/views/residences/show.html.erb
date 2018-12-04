@@ -14,8 +14,10 @@
                 <p><%= @residence.name %></p> <small><cite title="Source Title"><%= @residence.address %>, <%= @residence.country %>  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
             </blockquote>
             <p> Capacidad: <%= @residence.capacity %></p>
-            <% if current_user.premium %>
-            <%= link_to 'Reservar', new_reservation_path(:residence => @residence.id), class: 'btn btn-primary'%>
+            <% if signed_in? %>
+                <% if current_user.premium %>
+                    <%= link_to 'Reservar', new_reservation_path(:residence => @residence.id), class: 'btn btn-primary'%>
+                <%end%>
             <%end%>
         </div>
     </div>
