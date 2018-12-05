@@ -5,7 +5,7 @@
 			<th width="10%">Nombre</th>
 			<th width="10%">Puja</th>
 			<th width="50%">Foto</th>
-			<th width="10%">Fecha inicial</th>
+			<th width="10%">Fecha inicio</th>
 			<th width="10%"></th>
 			<th width="10%"></th>
 			<th colspan="6"></th>
@@ -14,20 +14,26 @@
 	<tbody>
 		<% @auctions.each do |auction| %>
 			<tr>
-				<%if (auction.in_date.month - Time.now.month) + 12 * (auction.in_date.year - Time.now.year) == 6 %>
-					<td><%= link_to auction.residence.name, auction_bid_up_path(:auction => auction.id) %></td>
-					<td>$<%= auction.bid %></td>
-					<td><img src="<%= auction.residence.photo%>" width="300"></td>
-					<td><%= auction.in_date.strftime("%d-%m-%Y") %></td>
-				<%else%>
-					<td><%= auction.residence.name %></td>
-					<td>$</td>
-					<td><img src="<%= auction.residence.photo%>" width="300"></td>
-					<td>FALTA AGREGAR FECHA DE INICIO DE SUBASTA Y RESTRICCION DE 72 HS</td>
+				<%@cumple=true%>
+				<%if !(auction.in_date-6.month<=Time.now and auction.in_date-6.month+4.days>Time.now) %>
+				  <%@cumple=false%>
+				<%end%> 
+				<% current_user.reservations.each do |r| %>
+					<% if r.in_date == auction.in_date %>
+					<% @cumple=false %>
+					<%end%>
 				<%end%>
+				<% if @cumple %>
+					<td><%= link_to auction.residence.name, auction_bid_up_path(:auction => auction.id) %></td>
+				<%else%>
+					<td><%=auction.residence.name%></td>
+				<%end%>
+				<td>$<%= auction.bid %></td>
+				<td><img src="<%= auction.residence.photo%>" width="300"></td>
+				<td><%= (auction.in_date-6.month).strftime("%d-%m-%Y") %></td>
 				<% if current_user.admin %>
-				<td><%= link_to 'Editar', edit_auction_path(auction), class: 'btn btn-warning' %></td>
-				<td><%= link_to 'Eliminar', auction, method: :delete, class: 'btn btn-danger', data: { confirm: '¿realmente desea eliminar la subasta?' } %></td>
+					<td><%= link_to 'Editar', edit_auction_path(auction), class: 'btn btn-warning' %></td>
+					<td><%= link_to 'Eliminar', auction, method: :delete, class: 'btn btn-danger', data: { confirm: '¿realmente desea eliminar la subasta?' } %></td>
 				<%end%>
 			</tr>
 		<% end %>
