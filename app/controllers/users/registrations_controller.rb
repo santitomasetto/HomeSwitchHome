@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
      super
    end
 
-  # PUT /resource
+  # PUT /resource 
    def update
      session[:user_id] = current_user.id
      @user=User.find(session[:user_id])
