@@ -1,0 +1,26 @@
+<div class="container">
+<%= form_for @hotsale do |hotsale| %>
+	<div class="form-group">
+	  <div class="row">
+	  	<div class="col-4">
+	  	    <h3><%= hotsale.label :name, @hotsale.residence.name%></h3>
+	  	    <%= hotsale.hidden_field :residence_id%>
+	  	</div>
+	  </div>
+      <div class="row">
+	    <div class="col-4">
+          <%= hotsale.label :amount, 'Costo' %>
+    	  <%= hotsale.text_field :amount, class: 'form-control', placeholder: "Ingrese el monto", required: true %>
+        </div>
+      </div>
+      <div class="row">
+      	<div class="col-4">
+      		<%= hotsale.label :in_date, 'Fecha de inicio de la semana' %>
+      		<%= hotsale.date_field :in_date, class: 'form-control', required: true %>
+        </div>
+      </div>
+	</div>
+	<%= hotsale.submit 'guardar', class: 'btn btn-success' %>
+	<%= link_to 'volver', residences_path, class: 'btn btn-link' %>
+<%end%>
+</div>

@@ -29,11 +29,11 @@ class AuctionsController < ApplicationController
           end
         else
           flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
-          render :new
+          render :edit
         end     
     else
       flash.now[:alert] = 'La subasta debe comenzar un lunes'
-      render :new
+      render :edit
     end
   end
 

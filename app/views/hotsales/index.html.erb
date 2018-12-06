@@ -1,0 +1,29 @@
+<h3>Hot-sales</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th width="10%">Nombre</th>
+			<th width="10%">Valor</th>
+			<th width="50%">Foto</th>
+			<th width="10%">Fecha</th>
+			<th width="10%"></th>
+			<th width="10%"></th>
+			<th colspan="6"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @hotsales.each do |hotsale| %>
+			<tr>
+				<td><%=hotsale.residence.name%></td>
+				<td>$<%= hotsale.amount %></td>
+				<td><img src="<%= hotsale.residence.photo%>" width="300"></td>
+				<td><%= hotsale.in_date.strftime("%d-%m-%Y") %></td>
+				<% if current_user.admin %>
+					<td><%= link_to 'Editar', edit_hotsale_path(hotsale), class: 'btn btn-warning' %></td>
+					<td><%= link_to 'Eliminar', hotsale, method: :delete, class: 'btn btn-danger', data: { confirm: '¿realmente desea eliminar el Hot-Sale?' } %></td>
+				<%end%>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+</br>
