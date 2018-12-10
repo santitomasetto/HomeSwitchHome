@@ -24,11 +24,15 @@
 					<%end%>
 				<%end%>
 				<% if @cumple %>
-					<td><%= link_to auction.residence.name, auction_bid_up_path(:auction => auction.id) %></td>
+					<td><%= link_to auction.residence.name, new_bid_path(:auction => auction.id, :user => current_user.id) %></td>
 				<%else%>
 					<td><%=auction.residence.name%></td>
 				<%end%>
-				<td>$<%= auction.bid %></td>
+				<% if auction.bids.count > 0 %>
+					<td>$<%= auction.bids.order(amount: :desc).first.amount %></td>
+				<%else%>
+					<td>$0</td>
+				<%end%>
 				<td><img src="<%= auction.residence.photo%>" width="300"></td>
 				<td><%= (auction.in_date-6.month).strftime("%d-%m-%Y") %></td>
 				<% if current_user.admin %>

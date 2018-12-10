@@ -1,0 +1,50 @@
+<head>
+	<title>HomeSwitchHome</title>
+</head>
+<body>
+	<div class="container">
+		<%=form_for @bid do |bid|%>
+		  <div class="row">
+		  	<div class="col-8">
+		  		<img src="<%=@bid.auction.residence.photo%>" width="700"> 
+		  	</div>
+		  	<div class="col-4">
+		  	  <div class="container">
+		  	    <div class="row">
+		  	      <div class="col-12">
+		   		    <h3><%= bid.label :name, @bid.auction.residence.name%></h3>
+		   		  </div>
+		   		</div>
+		   		<% if Auction.find(@bid.auction_id).bids.first %>
+		   			<div class="row">  
+		    		 	<div class="col-12">
+		    		    	<h3> Puja: $<%= bid.label :amount, @bid.auction.bids.order(amount: :desc).first.	amount %></h3>
+		    	  		</div>
+		    		</div>
+		    		<div class="row">
+		    			<%= bid.label :amount, 'Puja'%>
+		    			<%= bid.number_field :amount, :value => @bid.auction.bids.order(amount: :desc).first.amount, min: @bid.auction.bids.order(amount: :desc).first.amount+1,class: 'form-control'	%>
+		    		</div>
+		    	<%else%>
+		   			<div class="row">  
+		    		 	<div class="col-12">
+		    		    	<h3> Puja: $<%= bid.label :amount, 0 %></h3>
+		    	  		</div>
+		    		</div>
+		    		<div class="row">
+		    			<%= bid.label :amount, 'Puja'%>
+		    			<%= bid.number_field :amount, :value => 0, min: 1,class: 'form-control'	%>
+		    		</div>
+		    	<%end%>
+		    	<%= bid.hidden_field :user_id%>
+		    	<%= bid.hidden_field :auction_id%>
+		    	<div class="row">
+		    		<%= bid.submit 'Guardar', class: 'btn btn-success' %>
+	                <%= link_to 'Volver', auctions_path, class: 'btn btn-link' %>
+		    	</div>
+		  	  </div>
+		  	</div>
+		  </div>
+		<%end%>
+	</div>
+</body>
