@@ -30,7 +30,8 @@
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <%= form_tag residences_path, method: :get, enforce_utf8: false  do %>
-      <%= text_field_tag :keyword, nil, class: "form-control mr-sm-2", placeholder: "Ingrese Nombre" %>
+      <%= text_field_tag :text, nil, class: "form-control mr-sm-2", placeholder: "Ingrese Nombre", required: true %>
+      <%= date_field_tag :keyword, nil, class: "form-control mr-sm-2",required: true %>
       <%= submit_tag "Buscar", name: nil, class: "btn btn-outline-success my-2 my-sm-0" %>
       <% end %>
     </form>

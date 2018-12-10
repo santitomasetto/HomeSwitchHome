@@ -12,10 +12,14 @@
 	<tbody>
 		<% @users.each do |user| %>
 			<tr>
-				<td><%= user.name %></td>
-				<td><%= user.email %></td>
-				<td><%= user.premium %></td>
-				<td><%= link_to 'Hacer premium', users_make_premium_path(:id => user.id), class: 'btn btn-primary', data: { confirm: '¿Esta seguro?' } %></td>
+				<% if !user.admin %>
+					<td><%= user.name %></td>
+					<td><%= user.email %></td>
+					<td><%= user.premium %></td>
+					<% if !user.premium%>
+						<td><%= link_to 'Hacer premium', users_make_premium_path(:id => user.id), class: 'btn btn-primary', data: { confirm: '¿Esta seguro?' } %></td>
+					<%end%>
+				<%end%>
 			</tr>
 		<% end %>
 	</tbody>

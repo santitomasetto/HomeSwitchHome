@@ -8,9 +8,15 @@ class ResidencesController < ApplicationController
   end
 
   def index 
-  	search = "%#{params[:keyword]}%"
-  	if params[:keyword].present?
-  		@residences = Residence.where('name LIKE ? OR country LIKE ?',search,search)
+    if params[:text].present? && params[:keyword].present?
+      if "%#{params[:keyword]}%".to_date > Date.today+6.months
+        search1 = "%#{params[:text]}%" 
+  	    search2 = "%#{params[:keyword]}%"
+  		  @residences = Residence.where('name LIKE ? OR country LIKE ?',search1,search1).select {|res| res.is_available?(search2)}
+      else
+        flash.alert = "La fecha tiene que ser dentro de 6 meses"
+        redirect_to residences_path
+      end
   	else
     	@residences= Residence.all
     end
