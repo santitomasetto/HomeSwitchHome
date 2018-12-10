@@ -52,10 +52,6 @@ class AuctionsController < ApplicationController
     @auction=Auction.find(params[:id])
   end
 
-  def bid_up
-    @auction=Auction.find(params[:auction])
-  end
-
   def create
     @auction= Auction.new(params.require(:auction).permit(:amount,:in_date,:bid,:residence_id))
 
@@ -75,6 +71,28 @@ class AuctionsController < ApplicationController
     else
       flash.now[:alert] = 'La subasta debe comenzar un lunes'
       render :new
+    end
+  end
+
+  def winner
+    @encontro=false
+    @auction=Auction.find(params[:id])
+    @auction.bids.order(amount: :desc).each do |b|
+      if @auction.amount < b.amount
+        if User.find(b.user_id).reservations.count < 2
+          r=Reservation.new(in_date:b.auction.in_date,residence_id:b.auction.residence_id,user_id:b.user_id)
+          if r.save
+            flash.notice = "El ganador es #{User.find(b.user_id).name}, se le asigno una reserva"
+            @encontro=true
+            redirect_to auctions_path
+            break
+          end
+        end
+      end
+    end
+    if !@encontro
+      flash.alert = "No hay ganador"
+      redirect_to auctions_path
     end
   end
 
