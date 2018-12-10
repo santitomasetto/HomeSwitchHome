@@ -37,7 +37,11 @@
 				<td><img src="<%= auction.residence.photo%>" width="300"></td>
 				<td><%= (auction.in_date-6.month).strftime("%d-%m-%Y") %></td>
 				<% if current_user.admin %>
-					<td><%= link_to 'Determinar ganador', auction_winner_path(:id => auction.id), class: 'btn btn-primary', data: { confirm: '¿realmente desea determinar el ganador' } %></td>
+					<% if auction.in_date-6.month+4.days<=Time.now%>
+						<td><%= link_to 'Determinar ganador', auction_winner_path(:id => auction.id), class: 'btn btn-primary', data: { confirm: '¿realmente desea determinar el ganador' } %></td>
+					<%else%>
+						<td><button type="button" class="btn btn-primary" disabled>Determinar ganador</button></td>
+					<%end%>
 					<td><%= link_to 'Editar', edit_auction_path(auction), class: 'btn btn-warning' %></td>
 					<td><%= link_to 'Eliminar', auction, method: :delete, class: 'btn btn-danger', data: { confirm: '¿realmente desea eliminar la subasta?' } %></td>
 				<%end%>
