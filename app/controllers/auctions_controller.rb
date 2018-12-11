@@ -9,7 +9,7 @@ class AuctionsController < ApplicationController
   def new
     r=Residence.find(params[:residence])
     residence_id=r.id
-  	@auction= Auction.new(residence_id: residence_id, bid: 0)
+  	@auction= Auction.new(residence_id: residence_id)
   end
 
   def show

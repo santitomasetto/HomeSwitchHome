@@ -4,12 +4,13 @@
 		<tr>
 			<th width="10%">Nombre</th>
 			<th width="10%">Puja</th>
-			<th width="40%">Foto</th>
-			<th width="10%">Fecha inicio</th>
+			<th width="20%">Foto</th>
+			<th width="15%">Fecha de reserva</th>
+			<th width="15%">Fecha inicio</th>
+			<th width="5%">Ganador</th>
 			<th width="5%"></th>
 			<th width="5%"></th>
 			<th width="5%"></th>
-			<th colspan="7"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -35,9 +36,15 @@
 					<td>$0</td>
 				<%end%>
 				<td><img src="<%= auction.residence.photo%>" width="300"></td>
+				<td><%= auction.in_date.strftime("%d-%m-%Y") %></td>
 				<td><%= (auction.in_date-6.month).strftime("%d-%m-%Y") %></td>
+				<% if auction.residence.reservations.where(in_date: auction.in_date).any? %>
+					<td><%=User.find(auction.residence.reservations.where(in_date: auction.in_date).first.user_id).name%></td>
+				<%else%>
+					<td>-------</td>
+				<%end%> 
 				<% if current_user.admin %>
-					<% if auction.in_date-6.month+4.days<=Time.now%>
+					<% if auction.in_date-6.month+4.days<=Time.now and !(auction.residence.reservations.where(in_date: auction.in_date).any?) %>
 						<td><%= link_to 'Determinar ganador', auction_winner_path(:id => auction.id), class: 'btn btn-primary', data: { confirm: '¿realmente desea determinar el ganador' } %></td>
 					<%else%>
 						<td><button type="button" class="btn btn-primary" disabled>Determinar ganador</button></td>
