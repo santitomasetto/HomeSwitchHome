@@ -36,24 +36,28 @@ class HotsalesController < ApplicationController
 
 	def create
 		@hotsale= Hotsale.new(params.require(:hotsale).permit(:amount,:in_date,:residence_id))
-
-    	if @hotsale.in_date.wday == 1 
-    		if @hotsale.in_date > Time.now
-        		if @hotsale.save 
+        if !(Reservation.where({in_date: @hotsale.in_date, residence_id: @hotsale.residence_id}).any?)
+            if @hotsale.in_date.wday == 1 
+                if @hotsale.in_date > Time.now
+        		  if @hotsale.save 
             		flash.notice = "El hot-sale se creo exitosamente"
             		redirect_to hotsales_path
-        		else  
+        		  else  
             		flash.now[:alert] = 'Ya existe el hot-sale'
             		redirect_to hotsales_path
-        		end
-        	else
-        		flash.now[:alert] = 'El hot-sale debe comenzar como mínimo mañana'
-        		render :new  
-        	end
-    	else
+        		  end
+        	    else
+        		  flash.now[:alert] = 'El hot-sale debe comenzar como mínimo mañana'
+        		  render :new  
+        	    end
+    	    else
     		flash.now[:alert] = 'El hot-sale debe comenzar un lunes'
         	render :new
-    	end
+    	    end
+        else
+            flash.now[:alert] = 'La residencia se encuentra reservada para esa fecha'
+            render :new
+        end
 	end
 
 	def edit
