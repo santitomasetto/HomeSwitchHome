@@ -8,11 +8,17 @@ class ResidencesController < ApplicationController
   end
 
   def index 
-    if params[:text].present? && params[:keyword].present?
-      if "%#{params[:keyword]}%".to_date > Date.today+6.months
-        search1 = "%#{params[:text]}%" 
-  	    search2 = "%#{params[:keyword]}%"
-  		  @residences = Residence.where('name LIKE ? OR country LIKE ?',search1,search1).select {|res| res.is_available?(search2)}
+    if params[:date1].present? && params[:date2].present?
+      if "%#{params[:date1]}%".to_date > Date.today+6.months
+        if "%#{params[:date2]}%".to_date.day > "%#{params[:date1]}%".to_date.day && "%#{params[:date2]}%".to_date < "%#{params[:date1]}%".to_date+2.months 
+          search1 = "%#{params[:text]}%" 
+  	      search2 = "%#{params[:date1]}%"
+          search3 = "%#{params[:date2]}%"
+  		    @residences = Residence.where('name LIKE ? OR country LIKE ?',search1,search1).select {|res| res.is_available?(search2,search3)}
+        else
+          flash.alert = "La diferencia entre fechas debe ser como maximo de 2 meses y como minimo de 1 dia"
+          redirect_to residences_path
+        end
       else
         flash.alert = "La fecha tiene que ser dentro de 6 meses"
         redirect_to residences_path
