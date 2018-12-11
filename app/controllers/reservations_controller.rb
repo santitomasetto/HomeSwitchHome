@@ -10,7 +10,7 @@ class ReservationsController < ApplicationController
   end
 
   def index 
-
+    @reservations=User.find(params[:id]).reservations
   end
 
   def default

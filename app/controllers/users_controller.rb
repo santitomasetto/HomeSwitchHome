@@ -5,7 +5,11 @@ class UsersController < ApplicationController
 
   def make_premium
   	@user=User.find(params[:id])
-  	@user.premium=true
+    if @user.premium
+      @user.premium=false
+    else
+  	  @user.premium=true
+    end
   	if @user.save
   		flash.notice = "El usuario ya es premium"
   		redirect_to users_index_path

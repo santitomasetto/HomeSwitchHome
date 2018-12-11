@@ -18,6 +18,8 @@
 					<td><%= user.premium %></td>
 					<% if !user.premium%>
 						<td><%= link_to 'Hacer premium', users_make_premium_path(:id => user.id), class: 'btn btn-primary', data: { confirm: '¿Esta seguro?' } %></td>
+					<%else%>
+						<td><%= link_to 'Sacar premium', users_make_premium_path(:id => user.id), class: 'btn btn-danger', data: { confirm: '¿Esta seguro?' } %></td>
 					<%end%>
 				<%end%>
 			</tr>

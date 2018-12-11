@@ -38,12 +38,13 @@
     </form>
     <% if current_user %>
       <ul class="navbar-nav mr-auto">
-         <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            <%= current_user.name %>
-           </a>
+          </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#"><%= link_to 'Editar' , edit_user_registration_path, class: "nav-link"%></a>
+            <a class="dropdown-item" href=""><%= link_to 'Mis reservaciones', reservations_path(:id => current_user.id), class: "nav-link" %></a>
             <% if current_user.admin %>
             <a class="dropdown-item" href="#"><%= link_to 'Lista de usuarios', users_index_path, class: "nav-link" %></a>
             <%end%>
