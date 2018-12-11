@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title>HomeSwitchHome</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-responsive" src="<%= @hotsale.residence.photo %>" alt="<%= @hotsale.residence.name %>" title="<%= @hotsale.residence.name %>" width="500" />
+        </div>
+        <div class="col-md-6">
+            <blockquote>
+                <p><%= @hotsale.residence.name %></p> <small><cite title="Source Title"><%= @hotsale.residence.address %>, <%= @hotsale.residence.country %>  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+            </blockquote>
+            <p> Capacidad: <%= @hotsale.residence.capacity %></p>
+            <p> Fecha: <%= @hotsale.in_date.strftime("%d-%m-%Y") %></p>
+            <p> Valor: $<%= @hotsale.amount %> </p>
+            <% if signed_in? %>
+                <% if current_user.premium %>
+                    <%= link_to 'Reservar', reservation_hotsale_path(:in_date => @hotsale.in_date,:user_id => current_user.id, :residence_id => @hotsale.residence.id, :hotsale_id => @hotsale.id), class: 'btn btn-primary'%>
+                <%end%>
+            <%end%>
+        </div>
+    </div>
+    <%= link_to 'Volver', hotsales_path, class: 'btn btn-primary'%>
+</div>
+
+</body>
+</html>

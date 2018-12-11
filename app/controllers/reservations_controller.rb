@@ -64,4 +64,26 @@ class ReservationsController < ApplicationController
     	render :new
   	end
   end
+
+  def create_hotsale
+    @user_id=params[:user_id]
+    @residence_id=params[:residence_id]
+    @in_date=params[:in_date]
+    puts @user_id
+    puts @residence_id
+    puts @in_date
+    if !(User.find(@user_id).reservations.where(in_date: @in_date).any?)
+      @reservation=Reservation.new(in_date: @in_date, user_id: @user_id, residence_id: @residence_id)
+      if @reservation.save
+        flash.notice = "La reservacion fue realizada con exito"
+        redirect_to hotsales_path
+      else
+        flash.alert = "Error al realizar la reservacion"
+        redirect_to hotsale_path(params[:hotsale_id])
+      end
+    else
+        flash.alert = "Ya posee una reservacion para esa fecha"
+        redirect_to hotsale_path(params[:hotsale_id])  
+    end
+  end
 end

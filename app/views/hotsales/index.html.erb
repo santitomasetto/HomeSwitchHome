@@ -14,7 +14,7 @@
 	<tbody>
 		<% @hotsales.each do |hotsale| %>
 			<tr>
-				<td><%=hotsale.residence.name%></td>
+				<td><%= link_to hotsale.residence.name, hotsale_path(hotsale) %></td>
 				<td>$<%= hotsale.amount %></td>
 				<td><img src="<%= hotsale.residence.photo%>" width="300"></td>
 				<td><%= hotsale.in_date.strftime("%d-%m-%Y") %></td>

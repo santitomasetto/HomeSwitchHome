@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get 'residences/index'
   resources :residences
   resources :auctions
-  resources :reservations
+  resources :reservations 
+  get 'reservation/hotsale', to: 'reservations#create_hotsale'
   resources :hotsales
   resources :bids
   get '/auction/winner', to:'auctions#winner'
