@@ -16,7 +16,7 @@
             <p> Fecha: <%= @hotsale.in_date.strftime("%d-%m-%Y") %></p>
             <p> Valor: $<%= @hotsale.amount %> </p>
             <% if signed_in? %>
-                <% if current_user.premium %>
+                <% if !(Reservation.where({residence_id: @hotsale.residence.id, in_date: @hotsale.in_date}).any?) %>
                     <%= link_to 'Reservar', reservation_hotsale_path(:in_date => @hotsale.in_date,:user_id => current_user.id, :residence_id => @hotsale.residence.id, :hotsale_id => @hotsale.id), class: 'btn btn-primary'%>
                 <%end%>
             <%end%>
