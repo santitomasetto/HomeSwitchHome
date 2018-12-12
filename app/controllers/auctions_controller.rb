@@ -54,28 +54,33 @@ class AuctionsController < ApplicationController
 
   def create
     @auction= Auction.new(params.require(:auction).permit(:amount,:in_date,:bid,:residence_id))
-    if !(Reservation.where({in_date: @auction.in_date, residence_id: @auction.residence_id}).any?)
-      if @auction.in_date.wday == 1 
-          if (@auction.in_date.month - Time.now.month) + 12 * (@auction.in_date.year - Time.now.year) >= 6
-            if @auction.save 
-              flash.notice = "La subasta se creo exitosamente"
-              redirect_to auctions_path
-            else  
-              flash.now[:alert] = 'Ya existe la subasta'
-              redirect_to auctions_path
-            end
-          else
-            flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
-            render :new
-          end     
+    if !(Hotsale.where({in_date: @auction.in_date, residence_id: @auction.residence_id}).any?)
+      if !(Reservation.where({in_date: @auction.in_date, residence_id: @auction.residence_id}).any?)
+        if @auction.in_date.wday == 1 
+            if (@auction.in_date.month - Time.now.month) + 12 * (@auction.in_date.year - Time.now.year) >= 6
+              if @auction.save 
+                flash.notice = "La subasta se creo exitosamente"
+                redirect_to auctions_path
+              else  
+                flash.now[:alert] = 'Ya existe la subasta'
+                redirect_to auctions_path
+              end
+            else
+              flash.now[:alert] = 'Se debe crear con 6 meses de anticipacion'
+              render :new
+            end     
+        else
+          flash.now[:alert] = 'La subasta debe comenzar un lunes'
+          render :new
+        end
       else
-        flash.now[:alert] = 'La subasta debe comenzar un lunes'
+        flash.now[:alert] = 'La residencia se encuentra reservada para esa fecha'
         render :new
       end
-    else
-      flash.now[:alert] = 'La residencia se encuentra reservada para esa fecha'
-      render :new
-    end
+    else 
+        flash.now[:alert] = 'La residencia se encuentra en hot sale para esa fecha'
+        render :new
+    end  
   end
 
   def winner

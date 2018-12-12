@@ -36,7 +36,8 @@ class HotsalesController < ApplicationController
 
 	def create
 		@hotsale= Hotsale.new(params.require(:hotsale).permit(:amount,:in_date,:residence_id))
-        if !(Reservation.where({in_date: @hotsale.in_date, residence_id: @hotsale.residence_id}).any?)
+        if !(Auction.where({in_date: @hotsale.in_date, residence_id: @hotsale.residence_id}).any?)
+          if !(Reservation.where({in_date: @hotsale.in_date, residence_id: @hotsale.residence_id}).any?)
             if @hotsale.in_date.wday == 1 
                 if @hotsale.in_date > Time.now
         		  if @hotsale.save 
@@ -54,8 +55,12 @@ class HotsalesController < ApplicationController
     		flash.now[:alert] = 'El hot-sale debe comenzar un lunes'
         	render :new
     	    end
-        else
+          else
             flash.now[:alert] = 'La residencia se encuentra reservada para esa fecha'
+            render :new
+          end
+        else
+            flash.now[:alert] = 'La residencia se encuentra en subasta para esa fecha'
             render :new
         end
 	end
