@@ -52,7 +52,7 @@ class ReservationsController < ApplicationController
     	        render :new
     	      end     
     	  else
-    	    flash.now[:alert] = 'La subasta deeb comenzar un lunes'
+    	    flash.now[:alert] = 'La subasta debe comenzar un lunes'
     	    render :new
     	  end
     	else

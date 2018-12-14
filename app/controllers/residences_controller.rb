@@ -14,7 +14,7 @@ class ResidencesController < ApplicationController
           search1 = "%#{params[:text]}%" 
           search2 = "%#{params[:date1]}%"
           search3 = "%#{params[:date2]}%"
-          num = ("%#{params[:date2]}%".to_date - "%#{params[:date1]}%".to_date).to_f/7
+          num = (("%#{params[:date2]}%".to_date - "%#{params[:date1]}%".to_date).to_i+1)/7
           @residences = Residence.where('name LIKE ? OR country LIKE ?',search1,search1).select {|res| res.is_available?(search2,search3,num)}
         else
           flash.alert = "La diferencia entre fechas debe ser como maximo de 2 meses y como minimo de 1 semana"
